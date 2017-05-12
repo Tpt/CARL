@@ -1,10 +1,10 @@
-import random
-import tempfile
-import subprocess
-import plac
 import csv
 import os
+import plac
+import random
 import shutil
+import subprocess
+import tempfile
 
 
 def parse_triples(file_name):
@@ -55,7 +55,10 @@ def main(input_triples, input_cardinalities, output_file):
                 test[s] = o
 
         with open(output_file, 'wt') as out:
-            writer = csv.DictWriter(out, fieldnames=['minimal_confidence', 'recall', 'precision', 'f1', 'count_equalities', 'lower_bounds_count', 'upper_bounds_count', 'complete_count', 'incomplete_count', 'missing_size'], delimiter='\t')
+            writer = csv.DictWriter(out,
+                                    fieldnames=['minimal_confidence', 'recall', 'precision', 'f1', 'count_equalities',
+                                                'lower_bounds_count', 'upper_bounds_count', 'complete_count',
+                                                'incomplete_count', 'missing_size'], delimiter='\t')
             writer.writeheader()
             for file in os.listdir(output_temp_dir):
                 count_matched = 0

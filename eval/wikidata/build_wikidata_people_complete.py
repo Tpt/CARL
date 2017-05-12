@@ -1,7 +1,7 @@
-from itertools import chain
 import gzip
-
 import plac
+from itertools import chain
+
 
 def parse_triples(file_name):
     with gzip.open(file_name, 'rt') as file:
@@ -26,7 +26,9 @@ class TripleStore:
     def contains(self, s, p, o):
         return p in self.pso and s in self.pso[p] and o in self.pso[p][s]
 
+
 allowed_predicates = {'P22', 'P25', 'P26', 'P40', 'P3373', 'P3448', 'P19', 'P20', 'P27'}
+
 
 def main(input_file, output_file, output_cardinalities):
     triples = TripleStore()
@@ -44,8 +46,7 @@ def main(input_file, output_file, output_cardinalities):
             gender[s] = o
 
     # father/mother for children
-
-    for s,os in triples.pso['P40'].items():
+    for s, os in triples.pso['P40'].items():
         if s in gender:
             if gender[s] == 'Q6581097':  # is male
                 for o in os:
@@ -55,12 +56,12 @@ def main(input_file, output_file, output_cardinalities):
                     triples.insert(o, 'P25', s)
 
     # children for father/mother
-    for s,os in chain(triples.pso['P22'].items(), triples.pso['P25'].items()):
+    for s, os in chain(triples.pso['P22'].items(), triples.pso['P25'].items()):
         for o in os:
             triples.insert(o, 'P40', s)
 
     # siblings using children (it's already complete)
-    for s,os in triples.pso['P40'].items():
+    for s, os in triples.pso['P40'].items():
         for o1 in os:
             for o2 in os:
                 if o1 != o2:
@@ -69,10 +70,10 @@ def main(input_file, output_file, output_cardinalities):
     # symmetric relations
     for p in ['P3373', 'P26']:
         new_values = []
-        for s,os in triples.pso[p].items():
+        for s, os in triples.pso[p].items():
             for o in os:
                 new_values.append((o, s))
-        for s,o in new_values:
+        for s, o in new_values:
             triples.insert(s, p, o)
 
     # we output everything
@@ -102,6 +103,7 @@ def main(input_file, output_file, output_cardinalities):
         for p in {'P26', 'P40', 'P3373', 'P3448'}:
             for s, os in triples.pso[p].items():
                 file.write('{}|{}\thasExactCardinality\t{}\n'.format(s, p, len(os)))
+
 
 if __name__ == '__main__':
     plac.call(main)

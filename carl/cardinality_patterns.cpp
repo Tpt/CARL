@@ -748,12 +748,12 @@ int main(int argc, char *argv[]) {
                 if(new_cardinality.second.second >= min_std_confidence) {
                     output_card_stream << triples->getNodeForId(s) << '|' << triples->getNodeForId(p)
                                        << "\thasExactCardinality\t" << card << '\n';
-                    size_t actualCard = triples->getActualCount(s, p);
-                    if(actualCard >= card) {
+                    size_t actual_card = triples->getActualCount(s, p);
+                    if(actual_card >= card) {
                         complete++;
                     } else {
                         incomplete++;
-                        missing_size += (actualCard - card);
+                        missing_size += (card - actual_card);
                     }
                 }
             }

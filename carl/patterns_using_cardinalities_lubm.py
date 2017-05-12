@@ -1,11 +1,11 @@
-import random
-import tempfile
-import shutil
-import subprocess
-import plac
 import csv
 import math
 import numpy
+import plac
+import random
+import shutil
+import subprocess
+import tempfile
 
 
 def parse_triples(file_name):
@@ -21,11 +21,13 @@ def parse_triples(file_name):
 def map_list_field(map_, field):
     return list(map(lambda x: float(x[field]), map_))
 
+
 def correl(map_, field1, field2):
     try:
         return numpy.corrcoef(map_list_field(map_, field1), map_list_field(map_, field2))[0, 1]
     except IndexError:
         return 'nan'
+
 
 def main(input_triples, input_cardinalities, output_file):
     temp_dir = tempfile.mkdtemp()
@@ -46,13 +48,13 @@ def main(input_triples, input_cardinalities, output_file):
                     train_size_R = 0
                     for s, p, o in parse_triples(input_triples):
                         if p[len(p) - 1] == 'R':
-                            in_train = (random.randrange(100) <= 50*factor)
+                            in_train = (random.randrange(100) <= 50 * factor)
                             if in_train:
-                                 train_size_R += 1
+                                train_size_R += 1
                         else:
-                            in_train = (random.randrange(100) <= 100*factor)
+                            in_train = (random.randrange(100) <= 100 * factor)
                             if in_train:
-                                 train_size += 1
+                                train_size += 1
                         if in_train:
                             output_train.write("{}\t{}\t{}\n".format(s, p, o))
                         else:
@@ -68,10 +70,14 @@ def main(input_triples, input_cardinalities, output_file):
             with open(output_temp_file, 'rt', newline='') as output_learn:
                 learn_reader = csv.DictReader(output_learn, delimiter='\t')
                 for row in learn_reader:
-                    #row['dir coef'] = row['dir coef'] if math.isnan(float(row['dir coef'])) else math.log(1 + float(row['dir coef']))
-                    row['dir metric score'] = float(row['std conf']) if math.isnan(float(row['dir metric'])) else (float(row['dir metric']) + float(row['std conf'])) / 2
-                    row['dir coef score'] = float(row['std conf']) if math.isnan(float(row['dir coef'])) else (float(row['dir coef']) + float(row['std conf'])) / 2
-                    row['f1 score'] = 2 * (float(row['precision']) * float(row['recall'])) / (float(row['precision']) + float(row['recall']))
+                    row['dir metric score'] = float(row['std conf']) \
+                        if math.isnan(float(row['dir metric'])) \
+                        else (float(row['dir metric']) + float(row['std conf'])) / 2
+                    row['dir coef score'] = float(row['std conf']) \
+                        if math.isnan(float(row['dir coef'])) \
+                        else (float(row['dir coef']) + float(row['std conf'])) / 2
+                    row['f1 score'] = 2 * (float(row['precision']) * float(row['recall'])) / \
+                                      (float(row['precision']) + float(row['recall']))
                     rows.append(row)
             results.append({
                 'factor': factor,

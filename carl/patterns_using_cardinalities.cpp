@@ -107,8 +107,6 @@ public:
 
         //Count the number of missing triples per relation
         std::map<TripleStore::node_id, size_t> number_of_expected_triple_per_relation;
-        //std::map<TripleStore::node_id, size_t> number_of_incomplete_patterns;
-        //std::map<TripleStore::node_id, size_t> number_of_complete_patterns;
         for (const auto property : tripleStore->getProperties()) {
             for (TripleStore::node_id subject = 0; subject < entity_count; subject++) { //TODO: bad hack to iterate on everything
                 const auto& expected_cardinality = cardinalityStore->getExpectedCardinality(subject, property);
@@ -211,18 +209,6 @@ public:
                     } else {
                         rule.directional_metric = std::numeric_limits<double>::quiet_NaN();
                     }
-
-                    /*double expected_complete = (double) number_of_complete_patterns[rule.r] / entity_count;
-                    double actual_complete = (double) complete_triple_pattern_modified / subject_support;
-                    double expected_incomplete = (double) number_of_incomplete_patterns[rule.r] / entity_count;
-                    double actual_incomplete = (double) incomplete_triple_pattern_modified / subject_support;
-                    if(actual_complete == 0) {
-                        rule.directional_coef = std::numeric_limits<float>::max(); //We assume +\infty for expected_complete / actual_complete
-                    } else if(expected_incomplete == 0) {
-                        rule.directional_coef = std::numeric_limits<float>::max(); //We assume +\infty for actual_incomplete / expected_incomplete
-                    } else {
-                        rule.directional_coef = ((expected_complete / actual_complete) + (actual_incomplete / expected_incomplete)) / 2;
-                    }*/
 
                     double possible_relations_num = entity_count*entity_count;
                     double expected_incomplete = number_of_expected_triple_per_relation[rule.r] / possible_relations_num;
