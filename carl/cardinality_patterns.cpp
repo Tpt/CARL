@@ -744,7 +744,7 @@ int main(int argc, char *argv[]) {
             for(const auto& new_cardinality : new_cardinalities) {
                 TripleStore::node_id s = new_cardinality.first.first;
                 TripleStore::node_id p = new_cardinality.first.second;
-                size_t card = new_cardinality.second.second;
+                size_t card = new_cardinality.second.first;
                 if(new_cardinality.second.second >= min_std_confidence) {
                     output_card_stream << triples->getNodeForId(s) << '|' << triples->getNodeForId(p)
                                        << "\thasExactCardinality\t" << card << '\n';

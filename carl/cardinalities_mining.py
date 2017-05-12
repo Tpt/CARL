@@ -88,7 +88,7 @@ def main(input_triples, input_cardinalities, output_file):
                         missing_size = int(o)
 
                 data = {
-                    'minimal_confidence': "{0:.1f}".format(float(file.replace('.tsv', ''))),
+                    'minimal_confidence': "{0:.1f}".format(float(file.replace('.tsv', '')) / 100),
                     'recall': float('nan'),
                     'precision': float('nan'),
                     'f1': float('nan'),
