@@ -33,7 +33,9 @@ python3 generate_cardinalities.py lubm_dataset.tsv lubm_cardinalities.tsv
 
 Then you can run the experimentation with
 ```
-python3 patterns_using_cardinalities_lubm.py ../eval/lubm/lubm_dataset.tsv ../eval/lubm/lubm_cardinalities.tsv output_file.tsv
+python3 patterns_using_cardinalities_lubm.py ../eval/lubm/lubm_dataset.tsv ../eval/lubm/lubm_cardinalities.tsv rule_learning_statistics.tsv
 ```
 
 This should be done in the `carl` directory.
+
+The results generated from a dataset with 10 universities is provided in the [`results/rule_learning_statistics_10_univ.tsv`](results/rule_learning_statistics_10_univ.tsv) file.

@@ -33,6 +33,8 @@ Then you can run the experimentation with
 `python3 patterns_using_cardinalities_people.py ../eval/wikidata/wikidata_people_triples_full.tsv ../eval/wikidata/wikidata_people_cardinalities.tsv output_file.tsv`
 This should be done in the `carl` directory.
 
+The results generated from the March 6th,2017 dump is provided in the [`results/rule_learning_wikidata_people_20170306.tsv`](results/rule_learning_wikidata_people_20170306.tsv) file.
+
 
 ## Cardinality mining
 
@@ -51,3 +53,7 @@ Then you can run the experimentation with:
 python3 cardinalities_mining.py ../eval/wikidata/input_triples.tsv ../eval/wikidata/cardinalities_people.tsv output_file.tsv
 ```
 This should be done in the `carl` directory.
+
+The results generated from the March 6th,2017 dump is provided in the [`results/cardinality_learning_wikidata_people_20170306_with_schema.tsv`](results/cardinality_learning_wikidata_people_20170306_with_schema.tsv) file.
+
+The ones generated from the same dump but without `owl:FunctionalProperty` are in the [`results/cardinality_learning_wikidata_people_20170306_with_schema.tsv`](results/cardinality_learning_wikidata_people_20170306_with_schema.tsv) file.
