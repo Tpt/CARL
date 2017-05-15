@@ -34,7 +34,7 @@ Then you can run the experimentation with
 This should be done in the `carl` directory.
 
 The results generated from the March 6th,2017 dump is provided in the [`results/rule_learning_wikidata_people_20170306.tsv`](results/rule_learning_wikidata_people_20170306.tsv) file.
-
+The mines ruled with a global ratio of 0.5 are displayed at [`rule_learning_wikidata_people_20170306_rules_global_ratio_0.5.tsv`](results/rule_learning_wikidata_people_20170306_rules_global_ratio_0.5.tsv)
 
 ## Cardinality mining
 
